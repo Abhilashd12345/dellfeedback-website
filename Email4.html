@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Feedback — Dell Experience</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f4f6f9; margin:0; padding:24px; }
+    .container { max-width: 700px; margin:auto; background:#fff; padding:28px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+    .header { text-align:center; border-bottom:1px solid #eaeaea; padding-bottom:18px; }
+    .logo { height:48px; }
+    .content { padding:18px 0; color:#333; line-height:1.6; }
+    .highlight { color:#0076ce; font-weight:700; }
+    .footer { text-align:center; font-size:12px; color:#777; border-top:1px solid #eaeaea; padding-top:16px; margin-top:18px; }
+    .case-id { background:#eef5fb; padding:10px; border-radius:6px; margin-top:10px; font-size:14px; }
+    .question { margin-top:20px; }
+    .question-title { font-weight:700; margin-bottom:8px; }
+    .options label { margin-right:12px; }
+    .feedback-box { width:100%; min-height:80px; padding:10px; margin-top:8px; border:1px solid #ccc; border-radius:6px; resize:vertical; font-size:14px; }
+    .btn { background:#0076ce; color:#fff; border:none; padding:10px 16px; border-radius:6px; cursor:pointer; font-size:15px; }
+    .btn:disabled { opacity:.65; cursor:default; }
+    .status { margin-top:12px; font-size:14px; display:none; }
+    .status.success { color:green; display:block; }
+    .status.error { color:#c00; display:block; }
+    a.inline-link { color:#0076ce; text-decoration:none; }
+    /* small screens */
+    @media (max-width:520px){ .container{padding:18px} .logo{height:42px} }
+  </style>
+</head>
+<body>
+  <div class="container" role="main">
+    <div class="header">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Dell_Logo.svg" alt="Dell Logo" class="logo">
+      <h2>Case Resolved – We'd Love Your Feedback</h2>
+    </div>
+
+    <div class="content">
+      <p>Hi <strong>Customer</strong>,</p>
+      <p>Your support case has been <span class="highlight">successfully resolved</span>. Please take a moment to share your experience — it only takes a minute.</p>
+
+      <!-- Replace FORM_ENDPOINT with your Formspree endpoint, e.g. https://formspree.io/f/xxxxxx -->
+      <form id="feedbackForm" method="POST" action="https://formspree.io/f/yourFormId">
+        <!-- Contact / Case info -->
+        <label for="name">Name </label><br>
+        <input id="name" name="name" type="text" placeholder="Your name" style="width:100%;padding:8px;margin:6px 0;border-radius:4px;border:1px solid #ddd;">
+        <label for="phone">Phone no.</label><br>
+        <input id="phone" name="_replyto" type="phone" placeholder="1234567890" style="width:100%;padding:8px;margin:6px 0;border-radius:4px;border:1px solid #ddd;">
+        <label for="email">Email (optional — if you'd like a reply)</label><br>
+        <input id="email" name="_replyto" type="email" placeholder="you@example.com" style="width:100%;padding:8px;margin:6px 0;border-radius:4px;border:1px solid #ddd;">
+
+        <!-- Question 1 -->
+        <div class="question">
+          <div class="question-title">1. Do you have any remaining concerns or unresolved issues you’d like to highlight?</div>
+          <div class="options" aria-hidden="false">
+            <label><input type="radio" name="concerns" value="Yes"> Yes</label>
+            <label><input type="radio" name="concerns" value="No" checked> No</label>
+          </div>
+          <textarea name="concerns_details" class="feedback-box" placeholder="Please share details if any..."></textarea>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question">
+          <div class="question-title">2. Overall, how satisfied have you been with the support from Dell Technical Support?</div>
+          <div class="options" role="radiogroup" aria-label="Overall satisfaction">
+            <label><input type="radio" name="support_rating" value="1"> 1</label>
+            <label><input type="radio" name="support_rating" value="2"> 2</label>
+            <label><input type="radio" name="support_rating" value="3" checked> 3</label>
+            <label><input type="radio" name="support_rating" value="4"> 4</label>
+            <label><input type="radio" name="support_rating" value="5"> 5</label>
+          </div>
+          <textarea name="support_comments" class="feedback-box" placeholder="Additional comments..."></textarea>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question">
+          <div class="question-title">3. How was your experience with the service provider technician?</div>
+          <div class="options" role="radiogroup" aria-label="Technician rating">
+            <label><input type="radio" name="technician_rating" value="1"> 1</label>
+            <label><input type="radio" name="technician_rating" value="2"> 2</label>
+            <label><input type="radio" name="technician_rating" value="3" checked> 3</label>
+            <label><input type="radio" name="technician_rating" value="4"> 4</label>
+            <label><input type="radio" name="technician_rating" value="5"> 5</label>
+          </div>
+          <textarea name="technician_comments" class="feedback-box" placeholder="Your experience with the technician..."></textarea>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question">
+          <div class="question-title">4. Can we go ahead and archive this case as resolved?</div>
+          <div class="options" role="radiogroup" aria-label="Archive case">
+            <label><input type="radio" name="archive_case" value="Yes" checked> Yes</label>
+            <label><input type="radio" name="archive_case" value="No"> No</label>
+          </div>
+        </div>
+
+        <!-- Optional hidden fields:
+             - _next: redirect after formspree success (if you prefer redirect)
+             - _subject: email subject in Formspree notification (optional)
+        -->
+        <input type="hidden" name="_subject" value="New feedback submission">
+        <!-- <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html"> -->
+
+        <div style="margin-top:14px;">
+          <button class="btn" type="submit" id="submitBtn">Send Feedback</button>
+          <span id="status" class="status" role="status"></span>
+        </div>
+      </form>
+
+      <p style="margin-top:18px;">Thank you for your time and feedback. We truly appreciate it.</p>
+      <p>Warm regards,<br><strong>Dell Technologies Support Team</strong></p>
+    </div>
+
+    <div class="footer">
+      © 2025 Dell Technologies. All rights reserved.<br>
+      Visit us: <a href="https://www.dell.com" class="inline-link">www.dell.com</a>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('feedbackForm');
+      const submitBtn = document.getElementById('submitBtn');
+      const statusEl = document.getElementById('status');
+
+      // If you want to use AJAX submission (no page reload), Formspree supports JSON POSTs
+      // Make sure to replace the form action with your real Formspree endpoint.
+      form.addEventListener('submit', async function(e){
+        e.preventDefault();
+        submitBtn.disabled = true;
+        statusEl.className = 'status';
+        statusEl.textContent = 'Sending...';
+        statusEl.style.display = 'inline-block';
+
+        const action = form.action;
+        const formData = new FormData(form);
+
+        // Convert FormData to JSON
+        const data = {};
+        formData.forEach((value, key) => { data[key] = value; });
+
+        try {
+          const res = await fetch(action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (res.ok) {
+            statusEl.className = 'status success';
+            statusEl.textContent = 'Thanks — your feedback was submitted.';
+            // optionally clear inputs
+            // form.reset();
+          } else {
+            const err = await res.json().catch(()=>null);
+            throw new Error((err && err.error) ? err.error : 'Submission failed');
+          }
+        } catch (err) {
+          statusEl.className = 'status error';
+          statusEl.textContent = 'Sorry — we could not submit your feedback. Please try again later.';
+          console.error('Feedback submit error:', err);
+        } finally {
+          submitBtn.disabled = false;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
